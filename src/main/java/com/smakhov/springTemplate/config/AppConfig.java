@@ -1,4 +1,4 @@
-package com.smakhov.springTemplate.config;
+package com.smakhov.springtemplate.config;
 
 import com.vaadin.spring.annotation.EnableVaadin;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +12,10 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.context.ContextLoaderListener;
 
 import javax.annotation.Resource;
+import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -71,5 +73,9 @@ public class AppConfig {
         properties.put(PROPERTY_NAME_HIBERNATE_DIALECT, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
         properties.put(PROPERTY_NAME_HIBERNATE_MODE, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_MODE));
         return properties;
+    }
+
+    @WebListener
+    public static class MyContextLoaderListener extends ContextLoaderListener {
     }
 }
