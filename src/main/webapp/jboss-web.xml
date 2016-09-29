@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Weird but fact : XML Schemas have a lot of issues with validation in JBoss tools.
+I used old doctype here and it works with a charm.
+Bugs of XML Schemas: https://issues.jboss.org/browse/JBMETA-363 -->
+<!DOCTYPE jboss-web PUBLIC
+   "-//JBoss//DTD Web Application 2.4//EN"
+   "http://www.jboss.org/j2ee/dtd/jboss-web_4_0.dtd">
+
+<jboss-web>
+	<!-- Allow access via '/' URL (simply http://host:port). When the application is deployed, WildFly default page won't be shown -->
+    <context-root>/</context-root>
+</jboss-web>
