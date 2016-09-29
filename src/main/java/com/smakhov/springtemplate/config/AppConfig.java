@@ -1,10 +1,6 @@
 package com.smakhov.springtemplate.config;
 
-import java.util.Properties;
-
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
+import com.vaadin.spring.annotation.EnableVaadin;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +13,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.vaadin.spring.annotation.EnableVaadin;
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * Created by SMakhov on 28.09.2016.

@@ -1,36 +1,18 @@
 package com.smakhov.springtemplate.ui;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 
-import com.vaadin.navigator.Navigator;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.spring.navigator.SpringViewProvider;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-
-@SpringUI
-public class HelloView extends UI{
-
-	@Autowired
-    private SpringViewProvider viewProvider;
-	
-	Navigator navigator;
-
-	@Override
-	protected void init(VaadinRequest request) {
-		final VerticalLayout root = new VerticalLayout();
-        root.setSizeFull();
-        root.setMargin(true);
-        root.setSpacing(true);
-        setContent(root);
-        final Panel viewContainer = new Panel();
-        viewContainer.setSizeFull();
-        root.addComponent(viewContainer);
-        root.setExpandRatio(viewContainer, 1.0f);
-		navigator = new Navigator(this, viewContainer);
-		navigator.addProvider(viewProvider);
-	}
-	
+/**
+ * Created by SMakhov on 29.09.2016.
+ */
+@SpringView(name = "")
+public class HelloView extends HorizontalLayout implements View {
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
+        this.addComponent(new Label("blyad"));
+    }
 }
