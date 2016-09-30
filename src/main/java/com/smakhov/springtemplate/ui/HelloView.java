@@ -11,7 +11,10 @@ import com.vaadin.ui.Label;
  */
 @SpringView(name = "")
 public class HelloView extends HorizontalLayout implements View {
-    @Override
+
+	private static final long serialVersionUID = 7872993556914807253L;
+
+	@Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         this.addComponent(new Label("blyad"));
     }
