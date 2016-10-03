@@ -9,9 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
+
+import com.vaadin.spring.server.SpringVaadinServlet;
 
 /**
  * Created by SMakhov on 28.09.2016.
@@ -35,5 +38,12 @@ public class AppInitializer implements WebApplicationInitializer {
 				characterEncodingFilter);
 		EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST);
 		characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+		servletContext.addListener(new ContextLoaderListener(ctx));
+		ServletRegistration.Dynamic vaadinDispatcher = servletContext.addServlet(
+                "vaadin", SpringVaadinServlet.class);
+		vaadinDispatcher.setLoadOnStartup(1);
+		vaadinDispatcher.addMapping("/ui/*");
+		vaadinDispatcher.addMapping("/VAADIN/*");
+		
 	}
 }

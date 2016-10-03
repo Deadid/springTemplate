@@ -25,7 +25,7 @@ import com.vaadin.spring.annotation.EnableVaadin;
 @Configuration
 @PropertySource("classpath:hibernate.properties")
 @EnableJpaRepositories("com.smakhov.springtemplate.model")
-@ComponentScan(basePackages = "com.smakhov.springtemplate")
+@ComponentScan(basePackages = "com.smakhov.springtemplate.*")
 public class AppConfig {
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
     private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
@@ -72,4 +72,5 @@ public class AppConfig {
         properties.put(PROPERTY_NAME_HIBERNATE_MODE, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_MODE));
         return properties;
     }
+    
 }
