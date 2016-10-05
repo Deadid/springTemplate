@@ -1,6 +1,8 @@
 package com.smakhov.springtemplate.config;
 
+import com.vaadin.spring.server.SpringVaadinServlet;
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -30,5 +32,12 @@ public class AppInitializer implements WebApplicationInitializer {
 				characterEncodingFilter);
 		EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST);
 		characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
+		servletContext.addListener(new ContextLoaderListener(ctx));
+		ServletRegistration.Dynamic vaadinDispatcher = servletContext.addServlet(
+				"vaadin", SpringVaadinServlet.class);
+		vaadinDispatcher.setLoadOnStartup(1);
+		vaadinDispatcher.addMapping("/ui/*");
+		vaadinDispatcher.addMapping("/VAADIN/*");
+		
 	}
 }

@@ -11,7 +11,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -22,10 +21,9 @@ import java.util.Properties;
  */
 @EnableVaadin
 @Configuration
-@EnableTransactionManagement
 @PropertySource("classpath:hibernate.properties")
 @EnableJpaRepositories("com.smakhov.springtemplate.model")
-@ComponentScan(basePackages = "com.smakhov.springtemplate")
+@ComponentScan(basePackages = "com.smakhov.springtemplate.*")
 public class AppConfig {
     private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
     private static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
@@ -72,4 +70,5 @@ public class AppConfig {
         properties.put(PROPERTY_NAME_HIBERNATE_MODE, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_MODE));
         return properties;
     }
+
 }
