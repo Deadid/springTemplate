@@ -7,10 +7,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -21,6 +26,8 @@ import java.util.Properties;
  */
 @EnableVaadin
 @Configuration
+@EnableSpringDataWebSupport
+@EnableWebMvc
 @PropertySource("classpath:hibernate.properties")
 @EnableJpaRepositories("com.smakhov.springtemplate.model")
 @ComponentScan(basePackages = "com.smakhov.springtemplate.*")
@@ -39,6 +46,7 @@ public class AppConfig {
 
     @Bean
     public DataSource dataSource() {
+        System.out.println("Data source bean begin initialized");
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty(PROPERTY_NAME_DATABASE_DRIVER));
         dataSource.setUrl(environment.getRequiredProperty(PROPERTY_NAME_DATABASE_URL));
@@ -62,6 +70,16 @@ public class AppConfig {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;
+    }
+
+    @Bean
+    public RepositoryRestConfigurer repositoryRestConfigurer() {
+        return new RepositoryRestConfigurerAdapter() {
+            @Override
+            public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+                config.setBasePath("/api");
+            }
+        };
     }
 
     private Properties hibProperties() {
