@@ -2,15 +2,16 @@ package com.smakhov.springtemplate.model.dao;
 
 import com.smakhov.springtemplate.model.entity.User;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  * Created by SMakhov on 08.10.2016.
  */
-@RepositoryRestResource
+@Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-    Optional<User> findByUsername(@Param("username") String username);
+    User findByUsername(String username);
+
+    List<User> findAll();
 }

@@ -1,15 +1,14 @@
 package com.smakhov.springtemplate.config;
 
 import com.vaadin.spring.annotation.EnableVaadin;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
-import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
-import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -73,14 +72,14 @@ public class AppConfig {
     }
 
     @Bean
-    public RepositoryRestConfigurer repositoryRestConfigurer() {
-        return new RepositoryRestConfigurerAdapter() {
-            @Override
-            public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-                config.setBasePath("/api");
-            }
-        };
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+
+        messageSource.setBasename("messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
+
 
     private Properties hibProperties() {
         Properties properties = new Properties();
